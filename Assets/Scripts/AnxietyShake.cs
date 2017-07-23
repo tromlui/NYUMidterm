@@ -29,6 +29,10 @@ public class AnxietyShake : MonoBehaviour {
 			shake = 0f;
 			camTransform.localPosition = originalPos;
 		}
+	}
 
+	public void StopShaking () {
+		shake = 0f;
+		camTransform.localPosition = originalPos;
 	}
 }

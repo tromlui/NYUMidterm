@@ -39,6 +39,9 @@ public class StressingOut : MonoBehaviour {
 		if (curStress > stressShake) {
 			stressBar.GetComponent<Image> ().color = Color.red;
 			GetComponent<AnxietyShake> ().shake = Mathf.Infinity;
+		} else {
+			stressBar.GetComponent<Image> ().color = Color.green;
+			GetComponent<AnxietyShake> ().StopShaking ();
 		}
 	}
 
