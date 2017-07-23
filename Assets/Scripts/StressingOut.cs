@@ -14,7 +14,7 @@ public class StressingOut : MonoBehaviour {
 
 	public float stressSpeed;
 
-	public float fidgetValue;
+	//public float fidgetValue;
 
 	// Use this for initialization
 	void Start () {
@@ -46,7 +46,11 @@ public class StressingOut : MonoBehaviour {
 		curStress += stressSpeed * Time.deltaTime;
 	}
 
+
+	//this void is no longer necessary with a spererate fidget script
+	/*
 	public void Fidget () {
 		curStress = curStress - fidgetValue;
 	}
+	*/ 
 }

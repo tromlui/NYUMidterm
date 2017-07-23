@@ -15,11 +15,13 @@ public class EyeContact : MonoBehaviour {
 
 	public float eyeSpeed;
 
-	public GameObject eyeButton;
+	private ConversationManager cm;
+	public float conversationSpeed;
 
 
 	// Use this for initialization
 	void Start () {
+		cm = GetComponent<ConversationManager> ();
 
 	}
 
@@ -33,18 +35,47 @@ public class EyeContact : MonoBehaviour {
 			curEye = maxEye;
 		}
 
-		if (curEye > maxEyeWarning) {
-			GetComponent<AnxietyShake> ().shake = Mathf.Infinity;
+		if (curEye < 0) {
+			curEye = 0;
 		}
 
-		if (curEye < minEyeWarning) {
+		if (curEye > minEyeWarning && curEye < maxEyeWarning) {
+			cm.conversationLevel += conversationSpeed;
+			eyeBar.GetComponent<Image> ().color = Color.green;
+		} else {
+			cm.conversationLevel -= conversationSpeed;
+			eyeBar.GetComponent<Image> ().color = Color.red;
+		}
+
+
+		/*
+		if (curEye > maxEyeWarning) {
+			GetComponent<AnxietyShake> ().shake = Mathf.Infinity;
+
+			cm.conversationLevel -= cm.conversationLevel * conversationSpeed;
+		}
+
+		 if (curEye < minEyeWarning) {
 			eyeBar.GetComponent<Image> ().color = Color.red;
 			GetComponent<AnxietyShake> ().shake = Mathf.Infinity;
 		}
+		*/
 
-		MakingEyeContact ();
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit rayHit = new RaycastHit ();
+		if (Physics.Raycast (ray, out rayHit, 100f)) {
+			if (rayHit.transform.tag == "eye") {
+				curEye += eyeSpeed * Time.deltaTime;
+			} else {
+				curEye -= eyeSpeed * Time.deltaTime;
+			}
+		}
+
+		//MakingEyeContact ();
 	}
 
+
+	/*
 	public void MakingEyeContact () {
 		if (Input.GetKey (KeyCode.Mouse0)) {
 			curEye += eyeSpeed * Time.deltaTime;
@@ -52,4 +83,5 @@ public class EyeContact : MonoBehaviour {
 			curEye -= eyeSpeed * Time.deltaTime;
 		}
 	}
+	*/
 }
