@@ -18,11 +18,12 @@ public class DialogueTree : MonoBehaviour {
 
 	private ConversationManager cm;
 
-	public bool isCorrectChoice;
+	//private MakingGoodChoices mgc;
 
 	// Use this for initialization
 	void Start () {
 		cm = GetComponent<ConversationManager> ();
+		//mgc = GetComponent<MakingGoodChoices> ().selfButton;
 		NextDialogue (0);
 	}
 	
@@ -35,13 +36,15 @@ public class DialogueTree : MonoBehaviour {
 		StartCoroutine (DialogueTimer (dialogueTime));
 	}
 
+	/*
 	public void ChoiceCheck () {
-		if (correctChoice) {
+		if (mgc.isCorrectChoice) {
 			cm.conversationLevel += positiveEffect;
-		} else  if (!correctChoice){
+		} else  if (!mgc.isCorrectChoice){
 			cm.conversationLevel -= negativeEffect;
 		}
 	}
+	*/
 
 	IEnumerator DialogueTimer (float dialogueTime) {
 		Debug.Log ("Coroutine will run now");
@@ -51,8 +54,9 @@ public class DialogueTree : MonoBehaviour {
 			dialogueText.text = dialogueLines [nextNumber];
 			correctChoice = choices [nextNumber];
 
-			if (i >= dialogueLines.Length) {
+			if (i == dialogueLines.Length - 1) {
 				i = 0;
+				StartCoroutine (DialogueTimer (dialogueTime));
 			}
 			yield return new WaitForSeconds (dialogueTime);
 		}
