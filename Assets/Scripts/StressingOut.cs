@@ -15,12 +15,14 @@ public class StressingOut : MonoBehaviour {
 	public float stressSpeed;
 
 	private ConversationManager cm;
+	private DialogueTree dialogue;
 
 	//public float fidgetValue;
 
 	// Use this for initialization
 	void Start () {
 		cm = GetComponent<ConversationManager> ();
+		dialogue = GetComponent<DialogueTree> ();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +34,7 @@ public class StressingOut : MonoBehaviour {
 
 		if (curStress > maxStress) {
 			cm.gameOverWords.SetActive (true);
+			dialogue.dialogueText.text = "Are you okay? You're shaking.";
 			curStress = maxStress;
 		}
 
