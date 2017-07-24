@@ -14,11 +14,13 @@ public class StressingOut : MonoBehaviour {
 
 	public float stressSpeed;
 
+	private ConversationManager cm;
+
 	//public float fidgetValue;
 
 	// Use this for initialization
 	void Start () {
-		
+		cm = GetComponent<ConversationManager> ();
 	}
 	
 	// Update is called once per frame
@@ -29,6 +31,7 @@ public class StressingOut : MonoBehaviour {
 		stressBar.transform.localScale = new Vector3 (1, percent, 1);
 
 		if (curStress > maxStress) {
+			cm.gameOverWords.SetActive (true);
 			curStress = maxStress;
 		}
 

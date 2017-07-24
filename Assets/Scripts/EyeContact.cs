@@ -33,10 +33,12 @@ public class EyeContact : MonoBehaviour {
 
 		if (curEye > maxEye) {
 			curEye = maxEye;
+			cm.gameOverWords.SetActive (true);
 		}
 
 		if (curEye < 0) {
 			curEye = 0;
+			cm.gameOverWords.SetActive (true);
 		}
 
 		if (curEye > minEyeWarning && curEye < maxEyeWarning) {

@@ -18,13 +18,16 @@ public class DialogueTree : MonoBehaviour {
 
 	private ConversationManager cm;
 
-	//private MakingGoodChoices mgc;
+	private MakingGoodChoices mgc;
+
+	public int linesCounter;
 
 	// Use this for initialization
 	void Start () {
 		cm = GetComponent<ConversationManager> ();
-		//mgc = GetComponent<MakingGoodChoices> ().selfButton;
+		mgc = GetComponent<MakingGoodChoices> ();
 		NextDialogue (0);
+		linesCounter = 0;
 	}
 	
 	// Update is called once per frame
@@ -58,6 +61,18 @@ public class DialogueTree : MonoBehaviour {
 				i = 0;
 				StartCoroutine (DialogueTimer (dialogueTime));
 			}
+
+			/*
+			if (mgc.responsesGiven == i - 1) {
+				strikes = 1;
+			} else if (mgc.responsesGiven == i - 2) {
+				strikes = 2;
+				GetComponent<AnxietyShake> ().shake = Mathf.Infinity;
+			} else if (mgc.responsesGiven == i - 3) {
+				cm.gameOverWords.SetActive (true);
+			}
+			*/
+			linesCounter++;
 			yield return new WaitForSeconds (dialogueTime);
 		}
 		Debug.Log ("Coroutine has run");
