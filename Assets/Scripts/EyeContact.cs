@@ -19,12 +19,14 @@ public class EyeContact : MonoBehaviour {
 	public float conversationSpeed;
 
 	private DialogueTree dialogue;
+	private StressingOut stress;
 
 
 	// Use this for initialization
 	void Start () {
 		cm = GetComponent<ConversationManager> ();
 		dialogue = GetComponent<DialogueTree> ();
+		stress = GetComponent<StressingOut> ();
 	}
 
 	// Update is called once per frame
@@ -36,13 +38,20 @@ public class EyeContact : MonoBehaviour {
 		if (curEye > maxEye) {
 			curEye = maxEye;
 			dialogue.dialogueText.text = "Ooookay...You're starting to creep me out. I'm leaving.";
+			stress.stressSpeed = 0;
+			eyeSpeed = 0;
 			cm.gameOverWords.SetActive (true);
+			cm.backButton.SetActive (true);
+
 		}
 
 		if (curEye < 0) {
 			curEye = 0;
 			dialogue.dialogueText.text = "You're not paying attention to me at all, are you? I'm leaving.";
+			stress.stressSpeed = 0;
+			eyeSpeed = 0;
 			cm.gameOverWords.SetActive (true);
+			cm.backButton.SetActive (true);
 		}
 
 		if (curEye > minEyeWarning && curEye < maxEyeWarning) {
